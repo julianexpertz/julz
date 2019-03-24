@@ -27,55 +27,63 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <a class="navbar-brand" href="home.php">BLOGGOBLOG</a>
-    </div>
-
+      </div>
+    
+    <form id="form-container" class="form-container">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="home.php">Home</a></li>
-            <li><a href="login.php">Log-in</a></li>
+            <li class="active">
+              <a href="home.php">Home</a>
+            </li>
+            <li>
+              <a href="login.php">Log-in</a>
+            </li>
+            <li class="wikipedia-container">
+              <label id="wikipedia-header" for="input">Search Wiki: </label>
+              <input type="text" id="input" value="">
+              <button id="submit-btn">Submit</button>
+              <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
+            </li>
           </ul>
-    
         </div>
+    
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Artikel</h1>
-			<?php
-			require_once('conn.php');
+          <h1 class="page-header">Artikel Pengunjung</h1>
+          
+          <?php
+            require_once('conn.php');
+            $sql = "SELECT * FROM web";
+            $result = $conn->query($sql);
 
-			$sql = "SELECT * FROM web";
-			$result = $conn->query($sql);
-
-			if($result->num_rows > 0){
-				while($row = $result->fetch_assoc()){
-          echo "<img src=\"pic/".$row['gambar']."\" width=\"200\" height=\"180\">"."<br>";
-					echo "<br>"."<b>"."Title: ". $row["title"]."</b>". 
-						 "<br>"."Content: ". $row["content"]."<br>";
-					echo "<hr>";
-				}
-			}
-			else {
-				echo "No result";
-			}
-			?>
-
-          </div>
-
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                echo "<img src=\"pic/".$row['gambar']."\" width=\"200\" height=\"180\">"."<br>";
+                echo "<br>"."<b>"."Title: ". $row["title"]."</b>". "<br>"."Content: "."<br>"."<p align=\"justify\">". $row["content"]."</p>"."<br>"."<br>";
+                echo "<hr>";
+              }
+            }
+            else {
+              echo "No result";
+            }
+          ?>
+        </div>
           <h2 class="sub-header">Section title</h2>
           <div class="table-responsive">
-          
+    
           </div>
-        </div>
       </div>
     </div>
-
+    </form>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
     <script src="bootstrap.min.js"></script>
     <script src="docs.min.js"></script>
   </body>

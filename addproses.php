@@ -1,25 +1,23 @@
-<?php
-	include('conn.php');
+ <?php
+ require_once("conn.php");
 
-	$gambar = $_FILES['gambar']['name'];
-	$tmp = $_FILES['gambar']['tmp_name'];
-	$judul = $_POST['title'];
-	$konten = $_POST['content'];
-	$gambarbaru=$gambar;
-	$path="pic/".$gambarbaru;
 
-	if(move_uploaded_file($tmp, $path)){
-		$sql=mysqli_query($conn, "INSERT INTO web VALUES (NULL,'$gambarbaru','$judul','$konten',NULL)");
-		if($sql){
-			header('location:admin.php');
-		}
-		else{
-			echo "gagal!";
-			echo "<br><a href='add.php'>Kembali Ke Form</a>";
-		}
-	}
-	else{
-		echo "gambar gagal diupload";
-		echo "<br><a href='add.php'>Kembali Ke Form</a>";
-	}
+
+ $judul = $_POST['title'];
+ $content = $_POST['content'];
+ $gambar = upload();
+//  if(!$gambar){
+//  	return false;
+//  }
+
+
+$sql = "INSERT INTO web VALUES (NULL,'$gambar','$judul', '$content',NULL)";
+
+if ($conn->query($sql) === TRUE) {
+    header('location:admin.php');
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
 ?>
