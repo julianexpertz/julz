@@ -35,6 +35,9 @@
           $urnameErr="Username is required";
         } else{
           $urname = test_input($_POST['username']);
+          if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
+            $urnameErr = "Invalid Username"; 
+          }
         }
 
         if (empty($_POST['password'])){
@@ -43,6 +46,7 @@
           $pass= test_input($_POST['password']);
         }
       }
+      ?>
     ?>
 
     <div class="container">
@@ -51,22 +55,25 @@
         <p><span class="error">* required field</span></p>
         <h2 class="form-signin-heading"><center>Form Register<center></h2>
         <div>
-          <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $urname;?>">
+          <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $urname;?>" required>
           <span class="error">* <?php echo $urnameErr;?></span>
         </div>
 
         <div>
-          <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $pass;?>">
+          <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $pass;?>" required>
           <span class="error">* <?php echo $passErr;?></span>
         </div>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
+        <div>
+          <img src="captcha.php"/> <input type="text" placeholder="masukan kode captcha" name="kode"/><span class="error">*</span>
+        </div>
+        <br>
         <button class="btn btn-lg btn-primary btn-block" value="submit" type="submit">Register</button>
         <br>
-        <div><center>Sudah Punya akun ?<a href="login.php"><h3><b>Sign in Now!</b></h3></a></center></div>
+        <div><center>Already have an account?<a href="login.php"><b> Sign in!</b></h3></a></center></div>
         <br>
-        <div><center><a href="home.php"><h3><b>Back to Halaman Artikel</b></h3></a></center></div>
+        <div><center><a href="home.php"><h4><b>Guest enter</b></h4></a></center></div>
+        <div><center><b>or</b></center></div>
+        <div><center><a href="start.php"><h4><b>Back to Start Page</b></h4></a></center></div>
       </form>
 
     </div>

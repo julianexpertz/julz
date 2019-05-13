@@ -26,17 +26,15 @@
 
       <form form action="proseslogin.php" method="POST" class="form-signin" role="form">
         <h2 class="form-signin-heading"><center>Please sign in<center></h2>
-        <input type="username" class="form-control" name="username" placeholder="Username" required="">
-        <input type="password" class="form-control" name="password" placeholder="Password" required="">
-        
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
+        <input type="username" class="form-control" name="username" placeholder="Username" required>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+        <br>
         <button class="btn btn-lg btn-primary btn-block" value="submit" type="submit">Sign in</button>
         <br>
-        <div><center>Belum Punya akun ?<a href="daftar.php"><h3><b>Register Now!</b></h3></a></center></div>
-        <br>
-        <div><center><a href="home.php"><h3><b>Masuk Sebagai Tamu</b></h3></a></center></div>
+        <div><center>Haven't get an account?<a href="daftar.php"><b> Register now!</b></a></center></div>
+        <div><center><a href="home.php"><h4><b>Guest enter</b></h4></a></center></div>
+        <div><center><b>or</b></center></div>
+        <div><center><a href="start.php"><h4><b>Back to Start Page</b></h4></a></center></div>
       </form>
 
     </div>

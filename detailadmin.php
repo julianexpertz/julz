@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Guest Page</title>
+    <title>Admin Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -27,40 +27,55 @@
   </head>
 
   <body>
-    
+    <?php
+      session_start();
+      if(!isset($_SESSION['username'])) {
+         header('location:home.php'); 
+      } else { 
+         $username = $_SESSION['username']; 
+      }
+    ?>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <a class="navbar-brand" href="start.php">BLOGKU</a>
-          <a class="navbar-brand navbar-right" href="login.php">Log-in</a>
+        <a href="admin.php" class="navbar-brand">BLOGKU</a>
+        <a class="navbar-brand navbar-right" onclick="return confirm('Are you sure want to logout?')" href="logout.php">Log-out</a>
       </div>
-    
     
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-              <form id="form-container" class="form-container">
-                <li class="wikipedia-container">
-                  <label id="wikipedia-header" for="input">Search Wiki: </label>
-                  <input type="text" id="input" value="">
-                  <button id="submit-btn">Submit</button>
-                  <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
-                </li>
-              </form>
-            </ul>
+          <div class="nav nav-sidebar">
+            <div>
+              <center><a href="admin.php" class="btn btn-primary" style="float:center">Back To Home</a></center>
+            </div>
+            <hr>
+            <form id="form-container" class="form-container">
+              <div class="wikipedia-container">
+                <label id="wikipedia-header" for="input">Search Wiki: </label>
+                <input type="text" id="input" value="">
+                <button id="submit-btn">Submit</button>
+                <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
+              </div>
+            </form>
+          </div>
         </div>
-    
+      </div>
+    </div>
+        
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Guest Article</h1>
-
+          <h1 class="page-header">Admin Article<a href="add.php" class="btn btn-primary" style="float:right">Add Data</a></h1>
+          
           <?php
             require_once('conn.php');
-            $sql = "SELECT * FROM web";
+            $id = $_GET['id'];
+            $sql = "SELECT * FROM web WHERE id=$id";
             $result = $conn->query($sql);
-
             if($result->num_rows > 0){
               while($row = $result->fetch_assoc()){
                 echo "<img src=\"pic/".$row['gambar']."\" width=\"200\" height=\"180\">"."<br>";
-                echo "<br>"."<b>"."Title: ". $row["title"]."</b>". "<br>"."Content: "."<a href='detailhome.php?id=".$row['id']."'>Detail</a>"."<br>"."<div>Created time:</div>".$row['time'];
+                echo "<br>"."<b>"."Title: ". $row["title"]."</b>" . "<br>" ."Content: "."<br>"."<p align=\"justify\">". $row["content"]."</p>"."<br>"."<div>Created time:</div>".$row['time'];  
+                echo "<br>";
+                echo "<a href='edit.php?id=".$row['id']."'>Edit</a>";
+                echo " | <a onclick=\"return confirm('Are you sure deleting this post?');\"href='delete.php?id=". $row['id']."'>Delete</a><br>";
                 echo "<hr>";
               }
             }
@@ -75,7 +90,6 @@
           </div>
       </div>
     </div>
-    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

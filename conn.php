@@ -1,8 +1,8 @@
 <?php
-	$host='localhost';
-	$urname='root';
-	$pass='';
-	$dbname='blog';
+	$host='sql313.epizy.com';
+	$urname='epiz_23899227';
+	$pass='LWTu5sSaZjAh';
+	$dbname='epiz_23899227_blog';
 
 	$conn= new mysqli($host,$urname,$pass,$dbname);
 	

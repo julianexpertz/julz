@@ -29,38 +29,43 @@
   <body>
     
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <a class="navbar-brand" href="start.php">BLOGKU</a>
+          <a class="navbar-brand" href="home.php">BLOGKU</a>
           <a class="navbar-brand navbar-right" href="login.php">Log-in</a>
       </div>
-    
     
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-              <form id="form-container" class="form-container">
-                <li class="wikipedia-container">
-                  <label id="wikipedia-header" for="input">Search Wiki: </label>
-                  <input type="text" id="input" value="">
-                  <button id="submit-btn">Submit</button>
-                  <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
-                </li>
-              </form>
-            </ul>
+          <div class="nav nav-sidebar">
+            <div>
+              <center><a href="admin.php" class="btn btn-primary" style="float:center">Back To Home</a></center>
+            </div>
+            <hr>
+            <form id="form-container" class="form-container">
+              <div class="wikipedia-container">
+                <label id="wikipedia-header" for="input">Search Wiki: </label>
+                <input type="text" id="input" value="">
+                <button id="submit-btn">Submit</button>
+                <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
+              </div>
+            </form>
+          </div>
         </div>
-    
+      </div>
+    </div>
+        
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Guest Article</h1>
-
+          
           <?php
             require_once('conn.php');
-            $sql = "SELECT * FROM web";
+            $id = $_GET['id'];
+            $sql = "SELECT * FROM web WHERE id=$id";
             $result = $conn->query($sql);
-
             if($result->num_rows > 0){
               while($row = $result->fetch_assoc()){
                 echo "<img src=\"pic/".$row['gambar']."\" width=\"200\" height=\"180\">"."<br>";
-                echo "<br>"."<b>"."Title: ". $row["title"]."</b>". "<br>"."Content: "."<a href='detailhome.php?id=".$row['id']."'>Detail</a>"."<br>"."<div>Created time:</div>".$row['time'];
+                echo "<br>"."<b>"."Title: ". $row["title"]."</b>" . "<br>" . "Content: "."<br>"."<p align=\"justify\">". $row["content"]."</p>"."<br>"."<div>Created time:</div>".$row['time'];
                 echo "<hr>";
               }
             }

@@ -11,13 +11,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Halaman Admin</title>
+    <title>Admin Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="dash.css" rel="stylesheet">
 
   </head>
 
@@ -31,29 +31,34 @@
       }
     ?>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <a href="admin.php" class="navbar-brand">BLOGGOBLOG</a>
-          <p class="navbar-brand">||</p>
-          <a class="navbar-brand" onclick="return confirm('Are you sure want to logout?')" href="logout.php">Log-out</a>
+          <a href="start.php" class="navbar-brand">BLOGKU</a>
+          <a class="navbar-brand navbar-right" onclick="return confirm('Are you sure want to logout?')" href="logout.php">Log-out</a>
     </div>
 
-    <form id="form-container" class="form-container">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="admin.php">Home</a></li>
-            <li><a href="add.php">Add</a></li>
-            <li class="wikipedia-container">
-              <label id="wikipedia-header" for="input">Search Wiki: </label>
-              <input type="text" id="input" value="">
-              <button id="submit-btn">Submit</button>
-              <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
-            </li>
+            <form id="form-container" class="form-container">
+              <li class="wikipedia-container">
+                <label id="wikipedia-header" for="input">Search Wiki: </label>
+                <input type="text" id="input" value="">
+                <button id="submit-btn">Submit</button>
+                <ul id="wikipedia-links">Relevant Wikipedia articles here!</ul>
+              </li>
+            </form>
+            <hr>
+              <form>
+                <label>Search Youtube: </label>
+                <input type="text" id="search" value="">
+                <input type="submit" value="Search">
+              </form>
+              <div id="results"></div>
           </ul>
     
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Artikel Admin</h1>
+          <h1 class="page-header">Admin Article<a href="add.php" class="btn btn-primary" style="float:right">Add Data</a></h1>
           <br>
     			<?php
           $sql = "SELECT * FROM web";
@@ -61,10 +66,10 @@
           if($result->num_rows > 0){
     				while($row = $result->fetch_assoc()){
               echo "<img src=\"pic/".$row['gambar']."\" width=\"200\" height=\"180\">"."<br>";
-              echo "<br>"."<b>"."Title: ". $row["title"]."</b>" . "<br>" . "Content: "."<br>"."<p align=\"justify\">". $row["content"]."</p>"."<br>".$row['time'];  
+              echo "<br>"."<b>"."Title: ". $row["title"]."</b>" . "<br>" ."Content: "."<a href='detailadmin.php?id=".$row['id']."'>Detail</a>"."<br>"."<div>Created time:</div>".$row['time'];  
     					echo "<br>";
               echo "<a href='edit.php?id=".$row['id']."'>Edit</a>";
-              echo " | <a onclick=\"return confirm('Are you sure deleting this post?');\"href='delete.php?id=". $row['id']."'>Hapus</a><br>";
+              echo " | <a onclick=\"return confirm('Are you sure deleting this post?');\"href='delete.php?id=". $row['id']."'>Delete</a><br>";
               echo "<hr>";
     				}
     			}
@@ -82,11 +87,13 @@
         </div>
       </div>
     </div>
-  </form>
     
     <script src="jquery.min.js"></script>
     <script src="script.js"></script>
     <script src="bootstrap.min.js"></script>
     <script src="docs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="yutub.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
   </body>
 </html>
